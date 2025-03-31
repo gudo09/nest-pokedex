@@ -1,0 +1,14 @@
+# Run dokdocker-compose up -d
+# -d para ejecutar en modo "detoouch", es decir que no bloquea la terminal 
+version: '3'
+
+services:
+  db:
+    image: mongo:8
+    restart: always
+    ports:
+      - 27017:27017 #El primero es el puerto de mi app, el segundo es el puerto del contenedor
+    environment:
+      MONGODB_DATABASE: nest-pokemon
+    volumes: #creo el volumen para tener persistencia al reiniciar/cerrar
+      - ./mongo:/data/db #Crea una carpeta "mongo" y la conecta con la carpeta "data/db" del contenedor
