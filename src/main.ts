@@ -13,7 +13,9 @@ async function bootstrap() {
       forbidNonWhitelisted: true, // devuelve error si hay mas propiedades de las definiodas en el DTO, pero no manda
       transformOptions: {
         exposeUnsetFields: false, // evita que el undefined elimine los campos opcionales del patch
+        enableImplicitConversion: true,
       },
+      transform: true,
     }),
   );
 
