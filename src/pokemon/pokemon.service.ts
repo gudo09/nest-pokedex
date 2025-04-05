@@ -10,13 +10,20 @@ import { Pokemon } from './entities/pokemon.entity';
 
 import { CreatePokemonDto, UpdatePokemonDto } from './dto';
 import { PaginationDto } from 'src/common/dto/pagination.dto';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class PokemonService {
+  private defaultLimit: number;
+
   constructor(
     @InjectModel(Pokemon.name) // Decorador de @nestjs/mongoose para que podamos inyectar modelos al constructor del servicio
     private readonly pokemonModel: Model<Pokemon>,
-  ) {}
+    private readonly configService: ConfigService,
+  ) {
+    this.defaultLimit = configService.getOrThrow<number>('defaultLimit'); // trae la variable de ConfigService de @nestjs/config buscando en el app.config.ts y si no lo encuentra muestra un error en consola
+    //el generico <number> indica que devuelve un number a typescript pero no realiza la conversion de tipo
+  }
 
   async create(createPokemonDto: CreatePokemonDto) {
     try {
@@ -29,7 +36,7 @@ export class PokemonService {
   }
 
   findAll(paginationDto: PaginationDto) {
-    const { limit = 10, offset = 0 } = paginationDto; //Desestructuro y le asigno valores por defecto
+    const { limit = this.defaultLimit, offset = 0 } = paginationDto; //Desestructuro y le asigno valores por defecto
 
     return this.pokemonModel
       .find()

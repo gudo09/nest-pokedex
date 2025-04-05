@@ -2,7 +2,12 @@
 /dist
 /node_modules
 /build
+
+#Database
 /mongo
+
+#Enviroment varaibles
+.evv
 
 # Logs
 logs

@@ -23,7 +23,16 @@ npm i -g @nestjs/cli
 docker-compose up -d
 ```
 
-5. Ejecutar el endpoint seed para rellenar la base de datos
+5. Clonar el archivo `.env.template` de la raíz del proyecto y renombrarlo como `.env` en la misma raíz.
+
+6. Rellenar las variables de entorno del `.env` que acabamos de crear.
+
+7. Ejecutar la aplicacion en modo desarrollo
+```
+npm run start:dev
+```
+
+8. Ejecutar el endpoint seed para rellenar la base de datos. Reemplazar el puerto 3000 por el que hayas configurado en `.env`.
 
 ```
 http://localhost:3000/api/v2/seed
